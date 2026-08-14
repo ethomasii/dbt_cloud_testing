@@ -8,8 +8,8 @@
 -- arrays to reach a few million rows without hitting the limit.
 
 SELECT
-  a.n * 1000 + b.n AS n,
-  SHA256(CAST(a.n * 1000 + b.n AS STRING)) AS hash_val,
+  a * 1000 + b AS n,
+  SHA256(CAST(a * 1000 + b AS STRING)) AS hash_val,
   CURRENT_TIMESTAMP() AS created_at
-FROM UNNEST(GENERATE_ARRAY(1, 2000)) AS a(n)
-CROSS JOIN UNNEST(GENERATE_ARRAY(1, 1000)) AS b(n)
+FROM UNNEST(GENERATE_ARRAY(1, 2000)) AS a
+CROSS JOIN UNNEST(GENERATE_ARRAY(1, 1000)) AS b
