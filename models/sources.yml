@@ -1,0 +1,15 @@
+version: 2
+
+# Feature 11 test: point at bigquery-public-data.austin_bikeshare.bikeshare_trips.
+# Historical dataset (ended 2023), so freshness will always be `error` status —
+# exactly what we want to demo FAIL state on the Dagster source spec.
+sources:
+  - name: austin_bikeshare
+    database: bigquery-public-data
+    schema: austin_bikeshare
+    tables:
+      - name: bikeshare_trips
+        loaded_at_field: end_time
+        freshness:
+          warn_after: {count: 12, period: hour}
+          error_after: {count: 24, period: hour}
